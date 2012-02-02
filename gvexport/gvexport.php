@@ -52,40 +52,74 @@ if ( !file_exists( "modules/gvexport/languages/lang." . $lang_short_cut[$LANGUAG
 //require_once( "includes/person_class.php" );
 require_once( "config.php" );
 
-// Function sys_get_temp_dir() (which exists in latest PHP5 only) should be created on systems with older PHP version 
-if ( !function_exists( 'sys_get_temp_dir')) {
 /**
- 	* Returns the temporary dir
+	* Returns the temporary dir
 	*
 	* Based on http://www.phpit.net/
-    * article/creating-zip-tar-archives-dynamically-php/2/
- 	*
- 	* @return	string	System temp dir
- 	*/
-    function sys_get_temp_dir() {
-        // Try to get from environment variable
-        if ( !empty( $_ENV['TMP'])) {
-            return realpath( $_ENV['TMP']);
-        } elseif ( !empty( $_ENV['TMPDIR'])) {
-            return realpath( $_ENV['TMPDIR']);
-        } elseif ( !empty( $_ENV['TEMP'])) {
-            return realpath( $_ENV['TEMP'] );
-        }
-        // Detect by creating a temporary file
-        else {
-            // Try to use system's temporary directory
-            // as random name shouldn't exist
-            $temp_file = tempnam( md5( uniqid( rand(), TRUE)), '');
-            if ( $temp_file ) {
-                $temp_dir = realpath( dirname( $temp_file));
-                unlink( $temp_file );
-                return $temp_dir;
-            } else {
-                return FALSE;
-            }
-        }
+	* article/creating-zip-tar-archives-dynamically-php/2/
+	*
+	* changed to prevent SAFE_MODE restrictions
+	* 
+	* @return	string	System temp dir
+	*/
+function sys_get_temp_dir_my() {
+    // Try to get from environment variable
+    if ( !empty( $_ENV['TMP']) && is__writable($_ENV,'TMP') ) {
+	return realpath( $_ENV['TMP']);
+    } elseif ( !empty( $_ENV['TMPDIR']) && is__writable($_ENV,'TMPDIR') ) {
+	return realpath( $_ENV['TMPDIR']);
+    } elseif ( !empty( $_ENV['TEMP']) && is__writable($_ENV,'TEMP') ) {
+	return realpath( $_ENV['TEMP'] );
+    }
+    // Detect by creating a temporary file
+    else {
+	// Try to use system's temporary directory
+	// as random name shouldn't exist
+	$temp_file = tempnam( md5( uniqid( rand(), TRUE)), '');
+	if ( $temp_file ) {
+	    if (!is__writable(dirname( $temp_file)))
+	    {
+		unlink( $temp_file );
+		
+	    // Last resort: try index folder
+	    // as random name shouldn't exist
+		$temp_file = tempnam(realpath("index/"), md5( uniqid( rand(), TRUE)));
+	    }
+	    
+	    $temp_dir = realpath( dirname( $temp_file));
+	    unlink( $temp_file );
+	    
+	    return $temp_dir;
+	} else {
+	    return FALSE;
+	}
     }
 }
+
+
+
+function is__writable($path) {
+//will work in despite of Windows ACLs bug
+//NOTE: use a trailing slash for folders!!!
+//see http://bugs.php.net/bug.php?id=27609
+//see http://bugs.php.net/bug.php?id=30931
+
+    if ($path{strlen($path)-1}=='/') // recursively return a temporary file path
+        return is__writable($path.uniqid(mt_rand()).'.tmp');
+    else if (is_dir($path))
+        return is__writable($path.'/'.uniqid(mt_rand()).'.tmp');
+    // check tmp file for read/write capabilities
+    $rm = file_exists($path);
+    $f = @fopen($path, 'a');
+    if ($f===false)
+        return false;
+    fclose($f);
+    if (!$rm)
+        unlink($path);
+    return true;
+}
+
+
 
 /**
  * Main class for GVExport module
@@ -190,7 +224,7 @@ class gvexport {
 		global $pgv_lang, $LANGUAGE, $lang_short_cut, $GVE_CONFIG;
 
 		// Make a unique directory to the tmp dir
-		$temp_dir = sys_get_temp_dir() . "/" . md5($_SESSION["pgv_user"]);
+		$temp_dir = sys_get_temp_dir_my() . "/" . md5($_SESSION["pgv_user"]);
 		if( !is_dir("$temp_dir")) {
 			mkdir( "$temp_dir");
 		}
@@ -210,7 +244,7 @@ class gvexport {
 		global $pgv_lang, $LANGUAGE, $lang_short_cut, $GVE_CONFIG;
 
 		// Create the dump
-		$temp_dir = sys_get_temp_dir() . "/" . md5($_SESSION["pgv_user"]);
+		$temp_dir = sys_get_temp_dir_my() . "/" . md5($_SESSION["pgv_user"]);
 		header("Content-Type: text/html; charset=UTF-8");
 		$contents = $this->createGraphVizDump( $temp_dir);
 		$contents = "<pre>" . htmlspecialchars( $contents, ENT_QUOTES) . "</pre>";
