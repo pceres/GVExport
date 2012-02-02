@@ -1,0 +1,171 @@
+=====================================================================
+	Change Log
+	GVExport module for phpGedView
+	
+	Contact		: Ferenc Kurucz <korbendallas1976@gmail.com>
+=====================================================================
+Version 0.8.3 (2009-11-24)
+	- New		: Additional settings to control the look of the tree (dpi, ranksep, nodesep)
+	- Fixed		: Combined tree (request by Meliza Amity)
+	- Fixed		: Date handling for 4.2.3SVN compatibility, properly localised dates (by Łukasz Wileński)
+	- Changed	: Polish translation updated (by Łukasz Wileński)
+
+Version 0.8.2 (2009-08-23)
+	- New		: Stop tree processing on given INDIs (request by Marcel Beerli)
+
+Version 0.8.1a (2009-08-16)
+	- Fixed		: UI error if no Graphviz path is given
+
+Version 0.8.1 (2009-04-11)
+	- New		: Multiple indis could be added for partial trees (request by Bruno Spiquel)
+
+Version 0.8.0 (2009-02-15)
+	- Fixed		: Compatibility with 4.2/4.2SVN (by Ely Schoenfeld)
+	- New		: Photos in combined boxes (by Ely Schoenfeld)
+    - Changed   : Output file types configured in config.php /don't forget to replace it!/ (by Ely Schoenfeld)
+
+Version 0.7.2 (2008-10-23)
+	- Fixed		: Clickable containers (INDI and FAM) - now working again
+	- New		: Family containers could be switched off, so the graph is more compact now (its quite usable for pedigree & descendancy charts)
+	- New		: PostScript output works (sort of), this is needed if the page-breaking mode is used 
+
+Version 0.7.1 (2008-10-19)
+	- Fixed		: Works correctly with 4.1.6 SVN (file naming difference: person_class.php vs class_person.php)
+
+Version 0.7.0 (2008-07-27)
+	- Fixed		: Works correctly with 4.1.5 & 4.1.6 SVN (date handling)
+	- New		: Minor improvements in usability 
+	
+Version 0.6.6 (2008-05-01)
+	- New		: UI settings are saved in cookie (by Till Schulte-Coerne)
+	- New		: Multiple date formats (under development)
+
+Version 0.6.5 (2008-04-06)
+	- Fixed		: Workaround for the bug in method Family->getSpouseId() & UI changes (by Till Schulte-Coerne)
+
+Version 0.6.4 (2008-03-22)
+	- New		: German translation (by Hermann Schulte-Coerne)
+	- New		: Custom font name
+
+Version 0.6.3 (2008-02-01)
+	- Fixed		: Multi-platform operability (by Thomas Ledoux), now GVExport & GraphViz should work together on Win OS.
+
+Version 0.6.2 (2008-01-31)
+	- New		: Custom limit for ancestors and descendants search depth (level)
+	- New		: Search for cousines (now its a separate checkbox)
+	- New		: French translation (by Thomas Ledoux)
+	- Fixed		: URLs in combined mode
+
+Version 0.6.1 (2008-01-23)
+	- New		: Linked GEDCOMs (only in partial tree mode, not when "Everyone" is selected), URLs are working too for linked GEDCOMs.  
+	- Fixed		: INDIs with unknown gender in "combined" mode
+	- Fixed		: INDI id missing in "decorated" mode
+	- Fixed		: FAM id problems in "combined" mode (linked GEDCOMs)
+	- Fixed		: Polish translation is up-to-date (by wooc)
+
+Version 0.6.0 (2008-01-22)
+	- New		: UI redesign
+	- Changed	: Debug mode more self-explanatory
+
+Version 0.5.4 (2008-01-16)
+	- New		: PDF output (depends on graphviz version)
+	- New		: Custom media directory
+	- Fixed		: Absoulte URLs in indi/fam links
+	- Fixed		: Goofs in HTML formatted texts (& sign)
+	- Fixed		: Marriage place naming (abbr vs full)
+	- Fixed		: Left justified texts
+	- Fixed		: Avoiding estimated birth dates (if death date is present)
+
+Version 0.5.3 (2008-01-14)
+	- New		: Customizable text on the chart (in config file)
+	- New		: Full or abbreviated place name (in config file)
+	- New		: Margin size (in config file)
+	- Fixed		: Removing double qoutes (") from names	
+
+Version 0.5.2 (2007-12-20)
+	- New		: Polish translation (by wooc)
+
+Version 0.5.1a (2007-12-13)
+	- Fixed		: MCLIMIT setting (wasn't functioning at all)
+	
+Version 0.5.1 (2007-12-12)
+	- New		: MCLIMIT setting
+
+Version 0.5.0 (2007-12-02)
+	- Fixed		: PHP error during "simple" graph processing
+	- New		: INDI id and FAM id can be shown on graph (TODO #4)
+	- New		: Clickable containers (INDI and FAM), which opens the indi/fam page in PGV (TODO #2)
+	- New		: Last editor's username can be shown (TODO #4)
+
+Version 0.4.9 (2007-11-30)
+	- Fixed		: (Now really fixed) Unvalidated individuals and families are shown (TODO #1) 
+	- New		: Graph direction selectable (Top-to-Bottom or Left-to-Right)
+	- New		: Combined graph mode (husband and wife in a single cell together with marriage info) - works correctly only in partial tree mode
+	- New		: Data shown in the container can be selected
+
+Version 0.4.8 (2007-11-29)
+	- Fixed		: Unvalidated individuals and families are shown (TODO #1) 
+	
+Version 0.4.7 (2007-11-28)
+	- Fixed		: Error handling for GraphViz exec (Pasquale Ceres <pasquale_ceres at yahoo it>)
+	- New		: Graph can be shown in the browser window (Pasquale Ceres <pasquale_ceres at yahoo it>)
+
+Version 0.4.6 (2007-11-27)
+	- New		: People with not validated data could be marked
+
+Version 0.4.5 (2007-11-27)
+	- New		: Pagebreaking output could be selected (it has effect only on DOT files)
+
+Version 0.4.4 (2007-11-25)
+	- New		: New diagram type - Decorated with photos (could be slow!)
+	- New		: Not blood related people could be marked with different color (on partial tree)
+	- New		: Siblings can be included in partial tree
+	- Changed	: Some UI changes
+
+Version 0.4.3 (2007-11-24)
+	- New		: Custom font size used on diagram
+
+Version 0.4.2 (2007-11-24)
+	- New		: Ancestors, descendants & spouses are selectable in partial tree mode
+
+Version 0.4.1 (2007-11-24)
+	- Fixed		: Syntax error in DOT file, when using "decorated" mode
+
+Version 0.4 (2007-11-23)
+	- New		: Logic rewritten
+	- New		: Partial tree selection is available (INDI and his/her ancestors)
+	- New		: Added Italian language file (Pasquale Ceres <pasquale_ceres at yahoo it>)
+	- New		: Added SVG output format, but seems to be buggy
+	- Changed	: Some speed-up on full tree generation
+	- Changed	: Code cleanup (require files)
+	- Changed	: Default colors in config.php
+
+Version 0.3.2 (2007-11-22)
+	- Fixed		: If localized language file is missing, then "en" is used
+
+Version 0.3.1 (2007-11-22)
+	- New		: Basic configuration is available in a dedicated config file
+	- Fixed		: Proper use of language files
+	- Changed	: No more JS popups (gvexport_output.php is obsolete now)
+	
+Version 0.3 (2007-11-22)
+	- New		: Simple / Decorated (HTML) diagram
+	- New		: Custom colors for diagram 
+	- Fixed		: PHP bug (Pasquale Ceres <pasquale_ceres at yahoo it>)
+
+Version 0.2 (2007-11-21)
+	- Fixed		: PHP4 compatibility (Pasquale Ceres <pasquale_ceres at yahoo it>)
+	- Changed	: Temp files are saved into system temp dir / "md5(username)" subdir instead of "session_id" subdir, so fewer dirs are created now
+
+Version 0.1 (2007-11-15)
+	- Initial version
+
+=====================================================================
+	TODO
+=====================================================================
+	- Cleanup code
+	- Comment code
+	- PS export
+	- Using pictures in Decorated style diagram
+	- Customisable containers
+	- PHP coding style (mainly ' and ")
