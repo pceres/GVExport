@@ -54,7 +54,7 @@ require_once( "config.php" );
 
 // Function sys_get_temp_dir() (which exists in latest PHP5 only) should be created on systems with older PHP version 
 if ( !function_exists( 'sys_get_temp_dir')) {
-	/**
+/**
  	* Returns the temporary dir
 	*
 	* Based on http://www.phpit.net/
@@ -106,7 +106,8 @@ class gvexport {
 		global $pgv_lang, $LANGUAGE, $lang_short_cut, $GVE_CONFIG;		
 		
 		if ( empty( $_REQUEST['action']))
-			$_REQUEST['action'] = "none";
+//			$_REQUEST['action'] = "none";
+			$_REQUEST['action'] = "allinonetree";
 
 		if ( $_REQUEST['action'] == "allinonetree-run") {
 			if ( isset( $_REQUEST["vars"]["debug"])) {
