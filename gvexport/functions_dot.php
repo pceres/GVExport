@@ -719,7 +719,7 @@ class Dot {
 				$out .= "color=\"" . $bordercolor . "\", fillcolor=\"" . $fillcolor . "\", label=";
 			}
 			$out .= '"';
-			$out .= $name . '\n' . $this->settings["birth_text"] . $birthdate . " " . ( empty($birthplace)?'':'('.$birthplace.')') . '\l';
+			$out .= str_replace('"','\"',$name) . '\n' . $this->settings["birth_text"] . $birthdate . " " . ( empty($birthplace)?'':'('.$birthplace.')') . '\l';
 			if ( $isdead) {
 				$out .= $this->settings["death_text"] . $deathdate . " " . (empty($deathplace)?'':'('.$deathplace.')');
 			} else {
