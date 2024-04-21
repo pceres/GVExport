@@ -66,7 +66,7 @@ class Dot {
 	/**
 	 * Constructor of Dot class
 	 */
-	function Dot() {
+	function __construct() {
 		global $GVE_CONFIG;
 		// Load settings from config file
 
@@ -535,7 +535,7 @@ class Dot {
 	 */
 	function printPersonLabel( $pid, $related = TRUE) {
 		global $GVE_CONFIG, $pgv_changes, $lang_short_cut, $LANGUAGE, $DATE_FORMAT, $GEDCOM, $pgv_lang;
-		
+
 		$out = "";
 		// Get the personal data
 		$i = $this->getUpdatedPerson( $pid);
@@ -574,8 +574,14 @@ class Dot {
 		if ( $this->settings["show_by"]) {
 			$birthdate_var = $i->getBirthDate( FALSE);
 			$q1=$birthdate_var->qual1;
-			$d1=$birthdate_var->date1->Format($DATE_FORMAT);
-			$dy=$birthdate_var->date1->Format("Y");
+			if (is_null($birthdate_var->date1)) {
+				$d1='';
+				$dy='';
+			} else {
+				$d1=$birthdate_var->date1->Format($DATE_FORMAT);
+				$dy=$birthdate_var->date1->Format("Y");
+			}
+
 			$q2=$birthdate_var->qual2;
 			if (is_null($birthdate_var->date2))
 				$d2='';
@@ -620,8 +626,13 @@ class Dot {
 		if ( $this->settings["show_dy"]) {
 			$deathdate_var = $i->getDeathDate( FALSE);
 			$q1=$deathdate_var->qual1;
-			$d1=$deathdate_var->date1->Format($DATE_FORMAT);
-			$dy=$deathdate_var->date1->Format("Y");
+			if (is_null($deathdate_var->date1)) {
+				$d1='';
+				$dy='';
+			} else {
+				$d1=$deathdate_var->date1->Format($DATE_FORMAT);
+				$dy=$deathdate_var->date1->Format("Y");
+			}
 			$q2=$deathdate_var->qual2;
 			if (is_null($deathdate_var->date2))
 				$d2='';
@@ -825,8 +836,13 @@ class Dot {
 			if ( $this->settings["show_my"]) {
 				$marrdate_var = $f->getMarriageDate( FALSE);
 				$q1=$marrdate_var->qual1;
-				$d1=$marrdate_var->date1->Format($DATE_FORMAT);
-				$dy=$marrdate_var->date1->Format("Y");
+				if (is_null($marrdate_var->date1)) {
+					$d1='';
+					$dy='';
+				} else {
+					$d1=$marrdate_var->date1->Format($DATE_FORMAT);
+					$dy=$marrdate_var->date1->Format("Y");
+				}
 				$q2=$marrdate_var->qual2;
 				if (is_null($marrdate_var->date2))
 					$d2='';
